@@ -1,14 +1,29 @@
 ├── data
 │   └── db.json
 ├── src
-│   ├── app.js
+│   ├── app.ts
 │   ├── controllers
-│   │   └── lessonsController.js
+│   │   └── lessonsController.ts
 │   ├── models
-│   │   └── lessonModel.js
+│   │   └── lessonModel.ts
 │   ├── routes
-│   │   ├── index.js
-│   │   └── lessonsRouter.js
+│   │   ├── index.ts
+│   │   └── lessonsRouter.ts
 │   └── utils
-│       └── jwt.js
-└── README.md
+│       └── jwt.ts
+│
+├── node_modules
+├── package.json
+├── tsconfig.json
+├── README.md
+
+
+
+
+_____________________________________________________________________________________
+
+Analista PHP - Cecília e Lívia
+Salário - R$ 60/h - aprox. 168/mês - R$ 10.080,00
+
+_____________________________________________________________________________________
+

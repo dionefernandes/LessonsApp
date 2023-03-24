@@ -1,0 +1,25 @@
+{
+  "lessons": [
+    {
+      "id": 1,
+      "title": "Introduction to Node.js",
+      "description": "Learn the basics of Node.js",
+      "duration": 50,
+      "Teacher": "Manoel da Silva Nogueira"
+    },
+    {
+      "id": 2,
+      "title": "Building RESTful APIs",
+      "description": "Learn how to build RESTful APIs with Node.js and Express",
+      "duration": 50,
+      "Teacher": "Cibele de Alcântara"
+    },
+    {
+      "id": 3,
+      "title": "Authentication and Authorization",
+      "description": "Learn how to add authentication and authorization to your Node.js applications",
+      "duration": 50,
+      "Teacher": "Reginaldo dos Santos"
+    }
+  ]
+}
