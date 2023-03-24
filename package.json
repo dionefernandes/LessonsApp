@@ -1,0 +1,24 @@
+{
+  "name": "lessonsapp",
+  "version": "1.0.0",
+  "description": "Lessons Manager",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dionefernandes/LessonsApp.git"
+  },
+  "keywords": [
+    "Lesson",
+    "course",
+    "class"
+  ],
+  "author": "Dione Rodrigues Fernandes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dionefernandes/LessonsApp/issues"
+  },
+  "homepage": "https://github.com/dionefernandes/LessonsApp#readme"
+}
