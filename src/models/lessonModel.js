@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const dbPath = path.join(path.dirname, '..', '/data/db.json');
+const dbPath = path.join(__dirname, '..', '/data/db.json');
 
 class LessonModel {
   async getDataFromFile() {
@@ -25,6 +25,12 @@ class LessonModel {
 
   async create(lesson) {
     const data = await this.getDataFromFile();
+
+    const existingLesson = data.lessons.find(l => l.name === lesson.name);
+    if(existingLesson) {
+      throw new Error('A lesson with this name already exists');
+    }
+
     const newLesson = { ...lesson, id: data.lessons.length + 1 };
     data.lessons.push(newLesson);
     await this.writeDataToFile(data);
@@ -39,13 +45,19 @@ class LessonModel {
       return null;
     }
 
+    const existingLesson = data.lessons.find( (lesson) => lesson.name === updatedLesson.name && lesson.id !== id);
+
+    if(existingLesson) {
+      throw new Error('A lesson with this name already exists')
+    }
+
     const updatedLessonWithId = { ...updatedLesson, id };
     data.lessons.splice(index, 1, updatedLessonWithId);
     await this.writeDataToFile(data);
     return updatedLessonWithId;
   };
 
-  async remove(id) {
+  async delete(id) {
     const data = await this.getDataFromFile();
     const index = data.lessons.findIndex( (lesson) => lesson.id === id );
 
