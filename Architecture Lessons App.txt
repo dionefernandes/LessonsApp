@@ -11,19 +11,11 @@
 │   │   └── lessonsRouter.ts
 │   └── utils
 │       └── jwt.ts
+│       └── rsaKeyGenerator.js
 │
 ├── node_modules
 ├── package.json
 ├── tsconfig.json
 ├── README.md
 
-
-
-
-_____________________________________________________________________________________
-
-Analista PHP - Cecília e Lívia
-Salário - R$ 60/h - aprox. 168/mês - R$ 10.080,00
-
-_____________________________________________________________________________________
 
