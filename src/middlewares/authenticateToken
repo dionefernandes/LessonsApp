@@ -1,0 +1,24 @@
+const jwt = require('jsonwebtoken');
+const secret = 'LessonApp123';
+
+class AuthenticationMiddleware {
+  authenticateToken(req, res, next) {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if(!token) {
+      return res.status(401).send( {message: 'Missing token'} );
+    }
+
+    jwt.verify(token, secret, { algorithms: ['RS256'] }, (err, user) => {
+      if(err) {
+        return res.status(403).send( {message: `Invalid token: ${err.message}`} );
+      }
+
+      req.user = user;
+      next();
+    });
+  }
+}
+
+module.exports = new AuthenticationMiddleware();

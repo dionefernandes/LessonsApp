@@ -1,7 +1,7 @@
 const LessonModel = require('../models/lessonModel');
-const JWT = require('../utils/jwt');
+ const JWT = require('../utils/jwt');
 
-const jwt = new JWT();
+ const jwt = new JWT();
 
 class LessonsController {
   constructor() {
@@ -10,6 +10,7 @@ class LessonsController {
 
   async lessonsAll(request, response) {
     try {
+      console.log('-> ', this.lessonModel);
       const lessons = await this.lessonModel.findAll();
       response.status(200).json(lessons);
     } catch(error) {
@@ -63,7 +64,7 @@ class LessonsController {
     }
   };
 
-  async removeLesson(request, response) {
+  async deleteLesson(request, response) {
     const { id } = request.params;
 
     try {
@@ -106,4 +107,4 @@ class LessonsController {
   }
 }
 
-module.exports = new LessonsController;
+module.exports = new LessonsController();

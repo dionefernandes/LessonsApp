@@ -1,20 +1,26 @@
 const express = require('express');
 const LessonsController = require('../controllers/lessonsController');
 const jwt = require('../utils/jwt');
+const AuthenticationMiddleware = require('../middlewares/authenticateToken');
 
 const router = express.Router();
 
-router.get('/', LessonsController.lessonsAll);
-router.get('/:id', LessonsController.lessonById);
+router.use('/lessons', router);
 
-router.use( (req, res, next) =>{
-  jwt.verifyToken(req, res, next);
-});
+router.post('/auth', LessonsController.authenticate.bind(LessonsController));
 
-router.post('/', LessonsController.createLesson);
+// router.use( (req, res, next) =>{
+//   jwt.verify(req, res, next);
+// });
 
-router.put('/:id', LessonsController.updateLesson);
+router.get('/', AuthenticationMiddleware.authenticateToken.bind(AuthenticationMiddleware), LessonsController.lessonsAll.bind(LessonsController));
+router.get('/:id', LessonsController.lessonById.bind(LessonsController));
 
-router.delete('/:id', LessonsController.removeLesson);
+
+router.post('/', LessonsController.createLesson.bind(LessonsController));
+
+router.put('/:id', LessonsController.updateLesson.bind(LessonsController));
+
+router.delete('/:id', LessonsController.deleteLesson.bind(LessonsController));
 
 module.exports = router;

@@ -2,8 +2,8 @@ const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 
-const privateKeyPath = path.join(__dirname, '..', 'config', 'private.key');
-const publicKeyPath = path.join(__dirname, '..', 'config', 'public.key');
+const privateKeyPath = path.join(__dirname, '../../', 'config', 'private.key');
+const publicKeyPath = path.join(__dirname, '../../', 'config', 'public.key');
 
 class RSAKeyGenerator {
   static generateKeyPair() {
@@ -19,6 +19,9 @@ class RSAKeyGenerator {
           format: 'pem',
         }
       });
+
+      const privateKeyPath = path.join(__dirname, '../', 'config', 'private.key');
+      const publicKeyPath = path.join(__dirname, '../', 'config', 'public.key');
 
       fs.writeFileSync(privateKeyPath, privateKey);
       fs.writeFileSync(publicKeyPath, publicKey);

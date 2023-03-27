@@ -3,22 +3,21 @@ const fs = require('fs');
 const path = require('path');
 const RSAKeyGenerator = require('./rsaKeyGenerator');
 
-const privateKeyPath = path.join(__dirname, '..', 'config', 'private.key');
-const publicKeyPath = path.join(__dirname, '..', 'config', 'public.key');
-
 class JWT {
   constructor() {
     RSAKeyGenerator.generateKeyPair();
-    this.privateKeyPath = fs.readFileSync(privateKeyPath);
-    this.publicKeyPath = fs.readFileSync(publicKeyPath);
+    const privateKeyPath = path.join(__dirname, '..', 'config', 'private.key');
+    const publicKeyPath = path.join(__dirname, '..', 'config', 'public.key');
+    this.privateKey = fs.readFileSync(privateKeyPath).toString();
+    this.publicKey = fs.readFileSync(publicKeyPath).toString();
   };
 
   sign(payload, options) {
-    return jwt.sign(payload, this.privateKeyPath, options);
+    return jwt.sign(payload, this.privateKey, options);
   };
 
   verify(token, options) {
-    return jwt.verify(token, this.publicKeyPath, options);
+    return jwt.verify(token, this.publicKey, options);
   };
 };
 

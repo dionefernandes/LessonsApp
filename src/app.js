@@ -16,7 +16,6 @@ app.use( (err, req, res, next) => {
 });
 
 // Initialize the server
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
+app.listen(3000, () => {
   console.log('LessonsApp online!');
 });
