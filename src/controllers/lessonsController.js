@@ -75,7 +75,7 @@ class LessonsController {
         response.staus(204).json('Lesson removed successfully');
       }
     } catch(error) {
-      response.status(500).json( {message: error.message} );
+      response.status(500).json( {message: error} );
     }
   };
 

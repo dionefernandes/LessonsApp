@@ -30,15 +30,7 @@
       "duration": 50,
       "Teacher": "Tereza Mello",
       "ImgLink": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.interviewbit.com%2Fblog%2Fsystem-architecture%2F&psig=AOvVaw3oq1kTHjStpx6d4N928VcV&ust=1679933273309000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCOjJ_qH9-f0CFQAAAAAdAAAAABAE",
-      "id": "4"
-    },
-    {
-      "title": "System architecture 3",
-      "description": "SOLID, API Restful, Hexagonal, Vertical Slice",
-      "duration": 50,
-      "Teacher": "Tereza Mello",
-      "ImgLink": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.interviewbit.com%2Fblog%2Fsystem-architecture%2F&psig=AOvVaw3oq1kTHjStpx6d4N928VcV&ust=1679933273309000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCOjJ_qH9-f0CFQAAAAAdAAAAABAE",
-      "id": "5"
+      "id": 4
     }
   ]
 }

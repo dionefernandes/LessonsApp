@@ -73,8 +73,8 @@ class LessonModel {
     }
 
     data.lessons.splice(index, 1);
-    await this.writeDataToFile(data);
-    return true;
+    
+    return this.writeDataToFile(data);
   };
 }
 

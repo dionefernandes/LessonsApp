@@ -13,7 +13,7 @@ class JWT {
   };
 
   sign(payload, options) {
-    options = { ...options, expiresIn: 86400 };
+    options = { ...options, expiresIn: 3600 };
     return jwt.sign(payload, this.privateKey, options);
   };
 
