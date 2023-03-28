@@ -10,7 +10,6 @@ class LessonsController {
 
   async lessonsAll(request, response) {
     try {
-      console.log('-> ', this.lessonModel);
       const lessons = await this.lessonModel.findAll();
       response.status(200).json(lessons);
     } catch(error) {
@@ -88,21 +87,6 @@ class LessonsController {
       response.status(200).json( {token} );
     } else {
       response.status(401).json( {message: 'Invalid username or password'} );
-    }
-  }
-
-  async protectedRoute(request, response) {
-    const token = request.headers.authorization?.split(' ')[1];
-
-    if(!token) {
-      response.staus(401).json( {message: 'Token not provided'} );
-    } else {
-      try{
-        const decoded = jwt.verify( token, {algorithms: ['RS256']} );
-        response.status(200).json( {message: `Welcome, ${decoded.username}`} );
-      } catch(error) {
-        response.status(401).json( {message: error.message} );
-      }
     }
   }
 }

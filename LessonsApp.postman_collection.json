@@ -1,0 +1,193 @@
+{
+	"info": {
+		"_postman_id": "caf54495-2e07-4f11-a90d-d620c39b27ba",
+		"name": "LessonsApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/lessons/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"lessons",
+						"auth"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "lessonsAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/lessons/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"lessons",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "lessonById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/lessons/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"lessons",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createLesson",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"System architecture 2\",\r\n    \"description\": \"SOLID 2\",\r\n    \"duration\": 50,\r\n    \"Teacher\": \"Francisco Augusto Cabral\",\r\n    \"ImgLink\": \"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.interviewbit.com%2Fblog%2Fsystem-architecture%2F&psig=AOvVaw3oq1kTHjStpx6d4N928VcV&ust=1679933273309000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCOjJ_qH9-f0CFQAAAAAdAAAAABAE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/lessons/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"lessons",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateLesson",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"System architecture 3\",\r\n    \"description\": \"SOLID, API Restful, Hexagonal, Vertical Slice\",\r\n    \"duration\": 50,\r\n    \"Teacher\": \"Tereza Mello\",\r\n    \"ImgLink\": \"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.interviewbit.com%2Fblog%2Fsystem-architecture%2F&psig=AOvVaw3oq1kTHjStpx6d4N928VcV&ust=1679933273309000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCOjJ_qH9-f0CFQAAAAAdAAAAABAE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/lessons/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"lessons",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteLesson",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/lessons/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"lessons",
+						"5"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjc5OTYyMTU3LCJleHAiOjE2ODAwNDg1NTd9.HeQEMWCq63BzHMbHRiXkHsxO2-HIdc6iIajPP8uQ1uh8YlmFRxtiSc_RiOy-pluxktog7NS2UVfeWZ3Am-3uJHO7Q72wso697LhH9LYFAO4jOsknHBDyklXGxLk3bUg_486hjodaBMey_vBd2YDA7Wlnua7VWG5kUCCyKrP-43VaT87Bki3qfY22lvPXgqRj04y8IF11ANzpH6l6PXsf4XkilDGaSBd5k-aJazV_uIW5pUMt7AEN9jEeROpiqjs4qEZsqbRi-9N-p38DbvAHl2Wm5vcgcxGk6GU8nZtKPI19nREjig2LJFGwok5z_ahFlmoZ8c7IZZQ3HwPgRc5XtQ",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

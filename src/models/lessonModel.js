@@ -66,7 +66,7 @@ class LessonModel {
 
   async delete(id) {
     const data = await this.getDataFromFile();
-    const index = data.lessons.findIndex( (lesson) => lesson.id === id );
+    const index = data.lessons.findIndex( (lesson) => lesson.id == id );
 
     if(index === -1) {
       return null;

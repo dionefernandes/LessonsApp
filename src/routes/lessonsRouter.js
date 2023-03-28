@@ -9,18 +9,13 @@ router.use('/lessons', router);
 
 router.post('/auth', LessonsController.authenticate.bind(LessonsController));
 
-// router.use( (req, res, next) =>{
-//   jwt.verify(req, res, next);
-// });
-
 router.get('/', AuthenticationMiddleware.authenticateToken.bind(AuthenticationMiddleware), LessonsController.lessonsAll.bind(LessonsController));
-router.get('/:id', LessonsController.lessonById.bind(LessonsController));
+router.get('/:id', AuthenticationMiddleware.authenticateToken.bind(AuthenticationMiddleware), LessonsController.lessonById.bind(LessonsController));
 
+router.post('/', AuthenticationMiddleware.authenticateToken.bind(AuthenticationMiddleware), LessonsController.createLesson.bind(LessonsController));
 
-router.post('/', LessonsController.createLesson.bind(LessonsController));
+router.put('/:id', AuthenticationMiddleware.authenticateToken.bind(AuthenticationMiddleware), LessonsController.updateLesson.bind(LessonsController));
 
-router.put('/:id', LessonsController.updateLesson.bind(LessonsController));
-
-router.delete('/:id', LessonsController.deleteLesson.bind(LessonsController));
+router.delete('/:id', AuthenticationMiddleware.authenticateToken.bind(AuthenticationMiddleware), LessonsController.deleteLesson.bind(LessonsController));
 
 module.exports = router;
