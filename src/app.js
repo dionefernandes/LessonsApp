@@ -1,5 +1,8 @@
 const express = require('express');
+const dotenv = require('dotenv');
 const lessonsRouter = require('./routes/lessonsRouter');
+
+dotenv.config();
 
 const app = express();
 
@@ -12,6 +15,8 @@ app.use( (err, req, res, next) => {
   res.status(500).send('A server error has occurred!');
 });
 
-app.listen(3000, () => {
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
   console.log('LessonsApp online!');
 });

@@ -1,7 +1,9 @@
 const LessonModel = require('../models/lessonModel');
- const JWT = require('../utils/jwt');
+const path = require('path');
+const fs = require('fs');
+const JWT = require('../utils/jwt');
 
- const jwt = new JWT();
+const jwt = new JWT();
 
 class LessonsController {
   constructor() {
@@ -83,11 +85,66 @@ class LessonsController {
     const { username, password } = request.body;
 
     if(username === 'admin' && password === 'admin123') {
-      const token = jwt.sign( {username}, {algorithm: 'RS256'} );
-      response.status(200).json( {token} );
+      const sign = jwt.sign( {username}, {algorithm: 'RS256'} );
+      const token = sign.token;
+      const privateKey = sign.privateKey;
+      const publicKey = sign.publicKey;
+      const expiresIn = sign.expiresIn;
+
+      const cretedToken = await this.tokenList(token, privateKey, publicKey, expiresIn);
+
+      response.status(200).json( {cretedToken} );
     } else {
       response.status(401).json( {message: 'Invalid username or password'} );
     }
+  }
+
+  async tokenList(token, privateKey, publicKey, expiresIn) {
+    const tokenList = {
+      token: token,
+      privateKey: privateKey,
+      publicKey: publicKey,
+      expiresIn: expiresIn
+    }
+
+    const tokenExists = await this.lessonModel.tokenExists(token);
+    
+    if(!tokenExists) {
+      return await this.lessonModel.createTokenItem(tokenList);
+    } 
+
+    return tokenExists.token;
+  }
+
+  async tokenValidate(request, response) {
+    console.log(request);
+    const token = request.headers['authorization'];
+
+    if(!token) {
+      return res.status(401).send( {message: 'Missing token'} );
+    }
+
+    const tokenItem = await this.lessonModel.findToken(token);
+
+    if( !tokenItem || !tokenItem.publicKey || tokenItem.publicKey.trim() === '' ) {
+      return res.status(401).send( {message: 'This token is not registered'} );
+    }
+
+    const publicKey = tokenItem.publicKey;
+
+    jwt.verify(token, publicKey, { algorithms: ['RS256'] }, (err, user) => {
+      if(err) {
+        return response.status(403).send( {message: `Invalid token: ${err.message}`} );
+      }
+
+      request.user = user;
+      return response.status(200).send( {message: 'Verified token'} );
+    });
+  }
+
+  async expiredTokens() {
+    const now = new Date();
+    await this.lessonModel.deleteToken(now);
   }
 }
 

@@ -1,3 +1,8 @@
+LessonsApp
+
+
+Back-end
+
 ├── data
 │   └── db.json
 ├── src
@@ -19,3 +24,72 @@
 ├── README.md
 
 
+____________________________________________________________________________________________
+
+
+Front-end
+
+public/
+|-- index.html
+|
+src/
+|-- assets/
+|
+|-- components/
+|   |-- Footer/
+|   |   |-- index.js
+|   |   |-- styles.js
+|   |
+|   |-- Header/
+|   |   |-- index.js
+|   |   |-- styles.js
+|   |
+|   |-- LessonsSearch/
+|   |   |-- index.js
+|   |   |-- styles.js
+|   |
+|   |-- LessonsTable/
+|   |   |-- index.js
+|   |   |-- styles.js
+|   |
+|   |-- LoginForm/
+|   |   |-- index.js
+|   |   |-- styles.js
+|   |
+|   |-- NewLessonForm/
+|   |   |-- index.js
+|   |   |-- styles.js
+|   |
+|   |-- UpdateLessonForm/
+|       |-- index.js
+|       |-- styles.js
+|
+|-- views/
+|   |-- DetailsLesson/
+|   |   |-- index.js
+|   |   |-- styles.js
+|   |
+|   |-- Lessons/
+|   |   |-- index.js
+|   |   |-- styles.js
+|   |
+|   |-- Login/
+|   |   |-- index.js
+|   |   |-- styles.js
+|   |
+|   |-- NewLesson/
+|   |   |-- index.js
+|   |   |-- styles.js
+|   |
+|   |-- UpdateLesson/
+|       |-- index.js
+|       |-- styles.js
+|
+|-- index.js
+
+
+
+Considere a aplicação em 'https://github.com/dionefernandes/LessonsApp.git'
+
+Escreva um front-end em React para consumir os endpoints da aplicação. Escreva uma tela de login para consumir o endpoint '/lessons/auth' onde possamos informar um username e um password. Em seguida, escreva uma página com uma tabela contendo a lista de todas  as aulas e seus respectivos dados, com exceção da imagem 'ImgLink'. Na mesma página da tabela, insira um container de 35 px de altura com o nome da aplicação 'LessonsApp' destacado. Insira um botão nesta página para criar uma nova aula. Em cada linha da tabela que se refira a uma aula, adicione em colunas à esquerda com opções de alterar e excluir o registro para consumir os respectivos endpoints. Adicione também um botão em uma coluna,  junto com os botões de alterar e excluir,  para visualizar uma página com todos os dados da aula.  Nessa página, exiba todos os dados da aula e use o link armazenado em 'ImgLink' para exibir a imagem da aula.  Considere criar uma página com um formulário para cadastro de uma nova aula com um botão para salvar e outro para retornar a página onde está a tabela. Considere ainda criar uma  página com um formulário para atualizar uma aula específica com um botão para salvar e outro para retornar a página onde está a tabela.
+Escreva os respectivos códigos dos arquivos, por favor. Considere definir um nome para cada arquivo, por favor. Se preferir usar uma biblioteca CSS, utilize Bootstrap, por favor

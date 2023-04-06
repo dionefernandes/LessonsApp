@@ -1,11 +1,12 @@
 const fs = require('fs');
 const path = require('path');
 const dbPath = path.join(__dirname, '..', '../data/db.json');
+const tokenPath = path.join(__dirname, '..', '../data/tokenValidate.json');
 
 class LessonModel {
-  async getDataFromFile() {
+  async getDataFromFile(pathFile) {
     return new Promise((resolve, reject) => {
-      fs.readFile(dbPath, 'utf-8', (err, data) => {
+      fs.readFile(pathFile, 'utf-8', (err, data) => {
         if (err) {
           reject(err);
         } else {
@@ -15,23 +16,33 @@ class LessonModel {
     });
   };
 
-  async writeDataToFile(data) {
+  async writeDataToFile(data, pathFile) {
     const newData = JSON.stringify(data, null, 2);
-    fs.writeFileSync(dbPath, newData);
+    const stream = fs.createWriteStream(pathFile, {flags: 'w'});
+    stream.write(newData);
+    stream.end();
+    await new Promise((resolve, reject) => {
+      stream.on('finish', () => {
+        resolve();
+      });
+      stream.on('error', (err) => {
+        reject(err);
+      });
+    });
   };
 
   async findAll() {
-    const data = await this.getDataFromFile();
+    const data = await this.getDataFromFile(dbPath);
     return data.lessons;
   };
 
   async findById(id) {
-    const data = await this.getDataFromFile();
+    const data = await this.getDataFromFile(dbPath);
     return data.lessons.find( (lesson) => lesson.id == id );
   };
 
   async create(lesson) {
-    const data = await this.getDataFromFile();
+    const data = await this.getDataFromFile(dbPath);
 
     const existingLesson = data.lessons.find(l => l.title === lesson.title);
     if(existingLesson) {
@@ -40,12 +51,12 @@ class LessonModel {
 
     const newLesson = { ...lesson, id: data.lessons.length + 1 };
     data.lessons.push(newLesson);
-    await this.writeDataToFile(data);
+    await this.writeDataToFile(data, dbPath);
     return newLesson;
   };
 
   async update(id, updatedLesson) {
-    const data = await this.getDataFromFile();
+    const data = await this.getDataFromFile(dbPath);
     const index = data.lessons.findIndex( (lesson) => lesson.id == id );
 
     if(index === -1) {
@@ -60,12 +71,12 @@ class LessonModel {
 
     const updatedLessonWithId = { ...updatedLesson, id };
     data.lessons.splice(index, 1, updatedLessonWithId);
-    await this.writeDataToFile(data);
+    await this.writeDataToFile(data, dbPath);
     return updatedLessonWithId;
   };
 
   async delete(id) {
-    const data = await this.getDataFromFile();
+    const data = await this.getDataFromFile(dbPath);
     const index = data.lessons.findIndex( (lesson) => lesson.id == id );
 
     if(index === -1) {
@@ -74,7 +85,46 @@ class LessonModel {
 
     data.lessons.splice(index, 1);
     
-    return this.writeDataToFile(data);
+    return this.writeDataToFile(data, dbPath);
+  };
+
+  async tokenExists(token) {
+    const data = await this.getDataFromFile(tokenPath);
+    return data.tokensList.find( (tokens) => tokens.token == token );
+  };
+
+  async deleteToken(now) {
+    const data = await this.getDataFromFile(tokenPath);
+
+    data.tokensList = data.tokensList.filter(token => {
+      const createIn = new Date(token.createIn);
+      const expiresIn = token.expiresIn;
+
+      if( (createIn.getTime() + expiresIn * 1000) > now.getTime() ) {
+        return data.tokensList.splice(token.token, 1);
+      }
+    });
+  
+    return this.writeDataToFile(data, tokenPath);
+  }
+
+  async findToken(token) {
+    const data = await this.getDataFromFile(tokenPath);
+    return data.tokensList.find( (tokens) => tokens.token == token );
+  }
+
+  async createTokenItem(tokenItem) {
+    const dateTime = new Date().getTime();
+    tokenItem.createIn = dateTime;
+    const token = tokenItem.token;
+
+    const data = await this.getDataFromFile(tokenPath);
+
+    data.tokensList.push(tokenItem);
+
+    await this.writeDataToFile(data, tokenPath);
+    
+    return token;
   };
 }
 

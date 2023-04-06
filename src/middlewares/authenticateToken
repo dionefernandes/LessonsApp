@@ -1,18 +1,28 @@
 const jwt = require('jsonwebtoken');
 const path = require('path');
 const fs = require('fs');
+const LessonModel = require('../models/lessonModel');
 
 class AuthenticationMiddleware {
-  authenticateToken(req, res, next) {
+  constructor() {
+    this.lessonModel = new LessonModel();
+  }
+
+  async authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
-
-    const publicKeyPath = path.join(__dirname, '..', 'config', 'public.key');
-    const publicKey = fs.readFileSync(publicKeyPath).toString();
 
     if(!token) {
       return res.status(401).send( {message: 'Missing token'} );
     }
+
+    const tokenItem = await this.lessonModel.findToken(token);
+
+    if( !tokenItem || !tokenItem.publicKey || tokenItem.publicKey.trim() === '' ) {
+      return res.status(401).send( {message: 'This token is not registered'} );
+    }
+
+    const publicKey = tokenItem.publicKey;
 
     jwt.verify(token, publicKey, { algorithms: ['RS256'] }, (err, user) => {
       if(err) {

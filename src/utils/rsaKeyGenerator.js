@@ -6,7 +6,7 @@ const privateKeyPath = path.join(__dirname, '../../', 'config', 'private.key');
 const publicKeyPath = path.join(__dirname, '../../', 'config', 'public.key');
 
 class RSAKeyGenerator {
-  static generateKeyPair() {
+  static async generateKeyPair() {
     if( !fs.existsSync(privateKeyPath) || !fs.existsSync(publicKeyPath) ) {
       const { privateKey, publicKey } = crypto.generateKeyPairSync('rsa', {
         modulusLength: 2048,
