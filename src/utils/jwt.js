@@ -2,10 +2,13 @@ const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const path = require('path');
 const RSAKeyGenerator = require('./rsaKeyGenerator');
+const LessonModel = require('../models/lessonModel');
 
 class JWT {
   constructor() {
     RSAKeyGenerator.generateKeyPair();
+    this.lessonModel = new LessonModel();
+
     const privateKeyPath = path.join(__dirname, '..', 'config', 'private.key');
     const publicKeyPath = path.join(__dirname, '..', 'config', 'public.key');
 
@@ -23,7 +26,7 @@ class JWT {
       });
     });
   
-    // Aguardando a resolução das Promises antes de atribuir as chaves
+    // Waiting for Promises to resolve before assigning keys
     Promise.all([readPrivateKey, readPublicKey]).then(([privateKey, publicKey]) => {
       this.privateKey = privateKey;
       this.publicKey = publicKey;
@@ -41,8 +44,16 @@ class JWT {
     return { token, privateKey, publicKey, expiresIn };
   };
 
-  verify(token, options) {
-    return jwt.verify(token, this.publicKey, options);
+  async verify(token, options) {
+    const tokenItem = await this.lessonModel.findToken(token);
+
+    if( !tokenItem || !tokenItem.publicKey || tokenItem.publicKey.trim() === '' ) {
+      return res.status(401).send( {message: 'This token is not registered'} );
+    }
+
+    const publicKey = tokenItem.publicKey;
+
+    return jwt.verify(token, publicKey, options);
   };
 };
 

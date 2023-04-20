@@ -20,15 +20,58 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/lessons/auth",
+					"raw": "http://localhost:5000/lessons/auth",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "5000",
 					"path": [
 						"lessons",
 						"auth"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tokenValidate",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjgyMDIzMzk3LCJleHAiOjE2ODIwMjY5OTd9.B42o9aIeCmsS0ikV_5Q-EC-OitM_2aixyjfJcaJ7bKuBS-rlB2NwoZwgxadXbkCwC2xhq_rBIEo0rjJXNbDckc5bFc0NNUQA-OlcnWQFQYr6fe1-T2m7bnhQdAZe0RixEmDzabodz9WxpMQlnOVEjx6gUvjsbSEkf56JET-yfuc7PVBsJ3hGCaiLFLtKDcIuBzJzmUDN5-mVJFGXKd2OHseJzYgariBmwf9dvY7vP4fB7NL9hDdO6TNQMa1v9eUfCu4xJHIZy7z9DulGBKX5hhBA4JFh6sv6P2-pk9Ejpi_CymuvEKKMQETc_bO17VhRPSKEtizWZbORImGFGIOInA",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/lessons/tokenValidate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"lessons",
+						"tokenValidate"
 					],
 					"query": [
 						{
@@ -47,15 +90,36 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/lessons/",
+					"raw": "http://localhost:5000/lessons/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "5000",
 					"path": [
 						"lessons",
 						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "lessonByTitle",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/lessons/title/aula",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"lessons",
+						"title",
+						"aula"
 					]
 				}
 			},
@@ -67,15 +131,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/lessons/5",
+					"raw": "http://localhost:5000/lessons/3",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "5000",
 					"path": [
 						"lessons",
-						"5"
+						"3"
 					]
 				}
 			},
@@ -88,7 +152,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"title\": \"System architecture 2\",\r\n    \"description\": \"SOLID 2\",\r\n    \"duration\": 50,\r\n    \"Teacher\": \"Francisco Augusto Cabral\",\r\n    \"ImgLink\": \"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.interviewbit.com%2Fblog%2Fsystem-architecture%2F&psig=AOvVaw3oq1kTHjStpx6d4N928VcV&ust=1679933273309000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCOjJ_qH9-f0CFQAAAAAdAAAAABAE\"\r\n}",
+					"raw": "{\r\n    \"title\": \"Design Patterns\",\r\n    \"description\": \"Learn the basics about Design Patterns\",\r\n    \"duration\": 50,\r\n    \"Teacher\": \"Tereza Vasconcelos\",\r\n    \"ImgLink\": \"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.linkedin.com%2Fpulse%2Fsoftware-design-patterns-amr-saafan%3Ftrk%3Darticles_directory&psig=AOvVaw3-EpyQUxbT_2lSFCDdbBHN&ust=1680818507489000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCOjAqILfk_4CFQAAAAAdAAAAABAE\"\r\n  }\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -96,12 +160,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/lessons/",
+					"raw": "http://localhost:5000/lessons/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "5000",
 					"path": [
 						"lessons",
 						""
@@ -117,7 +181,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"title\": \"System architecture 3\",\r\n    \"description\": \"SOLID, API Restful, Hexagonal, Vertical Slice\",\r\n    \"duration\": 50,\r\n    \"Teacher\": \"Tereza Mello\",\r\n    \"ImgLink\": \"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.interviewbit.com%2Fblog%2Fsystem-architecture%2F&psig=AOvVaw3oq1kTHjStpx6d4N928VcV&ust=1679933273309000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCOjJ_qH9-f0CFQAAAAAdAAAAABAE\"\r\n}",
+					"raw": "{\r\n    \"title\": \"Software engineering design patterns\",\r\n    \"description\": \"Learn the basics about Design Patterns\",\r\n    \"duration\": 50,\r\n    \"Teacher\": \"Tereza Vasconcelos\",\r\n    \"ImgLink\": \"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.linkedin.com%2Fpulse%2Fsoftware-design-patterns-amr-saafan%3Ftrk%3Darticles_directory&psig=AOvVaw3-EpyQUxbT_2lSFCDdbBHN&ust=1680818507489000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCOjAqILfk_4CFQAAAAAdAAAAABAE\"\r\n  }\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -125,12 +189,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/lessons/5",
+					"raw": "http://localhost:5000/lessons/5",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "5000",
 					"path": [
 						"lessons",
 						"5"
@@ -145,15 +209,84 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/lessons/5",
+					"raw": "http://localhost:5000/lessons/5",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "5000",
 					"path": [
 						"lessons",
 						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "expiredTokens",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/lessons/expiredTokens",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"lessons",
+						"expiredTokens"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "serverOnline",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/lessons/serverOnline",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"lessons",
+						"serverOnline"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "isTokenValid",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"token\": \"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjgyMDE3NzA5LCJleHAiOjE2ODIwMjEzMDl9.CwoevwQb1HeYdVSlpSKVzgOoc-jDm59_Do3-LRsXnfuuN1CGmuh4xylyB4insmHRpGUs648vyFX8g9q74wNlh5-ghVl2kh-gzT9C9FMaOsPatibPWQCH8suW8vtH2boVkthOGWk0sD0gUFSm495a-iK2sM805WU_0WAr4JVdWTY-3cT19taCKMkcrPw3hlFwYuqDV4bGa73dFRECjE7rHxsnRvuA8aM5i-AJaPH7_cW5cjn8OUC0lzoqcqv63G_6mo8SrJJTj7mjxXZc4W8pYpCDnZ15gWwf8GjrFfxpVxTr8dvMV6dPCgmhWgDmb3JWze6l7Pa_G09q5_G4awzTug\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/lessons/isTokenValid",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"lessons",
+						"isTokenValid"
 					]
 				}
 			},
@@ -165,7 +298,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjc5OTYyMTU3LCJleHAiOjE2ODAwNDg1NTd9.HeQEMWCq63BzHMbHRiXkHsxO2-HIdc6iIajPP8uQ1uh8YlmFRxtiSc_RiOy-pluxktog7NS2UVfeWZ3Am-3uJHO7Q72wso697LhH9LYFAO4jOsknHBDyklXGxLk3bUg_486hjodaBMey_vBd2YDA7Wlnua7VWG5kUCCyKrP-43VaT87Bki3qfY22lvPXgqRj04y8IF11ANzpH6l6PXsf4XkilDGaSBd5k-aJazV_uIW5pUMt7AEN9jEeROpiqjs4qEZsqbRi-9N-p38DbvAHl2Wm5vcgcxGk6GU8nZtKPI19nREjig2LJFGwok5z_ahFlmoZ8c7IZZQ3HwPgRc5XtQ",
+				"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjgyMDIzMzk3LCJleHAiOjE2ODIwMjY5OTd9.B42o9aIeCmsS0ikV_5Q-EC-OitM_2aixyjfJcaJ7bKuBS-rlB2NwoZwgxadXbkCwC2xhq_rBIEo0rjJXNbDckc5bFc0NNUQA-OlcnWQFQYr6fe1-T2m7bnhQdAZe0RixEmDzabodz9WxpMQlnOVEjx6gUvjsbSEkf56JET-yfuc7PVBsJ3hGCaiLFLtKDcIuBzJzmUDN5-mVJFGXKd2OHseJzYgariBmwf9dvY7vP4fB7NL9hDdO6TNQMa1v9eUfCu4xJHIZy7z9DulGBKX5hhBA4JFh6sv6P2-pk9Ejpi_CymuvEKKMQETc_bO17VhRPSKEtizWZbORImGFGIOInA",
 				"type": "string"
 			}
 		]

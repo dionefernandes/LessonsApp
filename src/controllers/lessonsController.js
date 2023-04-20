@@ -35,6 +35,22 @@ class LessonsController {
     }
   };
 
+  async lessonByTitle(request, response) {
+    const { title } = request.params;
+
+    try {
+      const lesson = await this.lessonModel.findByTitle(title);
+
+      if(!lesson) {
+        response.status(404).json( {message: 'Lesson not found'} );
+      } else {
+        response.status(200).json(lesson);
+      }
+    } catch(error) {
+      response.status(500).json( {message: error.message} );
+    }
+  };
+
   async createLesson(request, response) {
     const { title, description, duration, Teacher, ImgLink } = request.body;
     const lesson = { title, description, duration, Teacher, ImgLink };
@@ -69,11 +85,15 @@ class LessonsController {
     const { id } = request.params;
 
     try {
+      const lesson = await this.lessonModel.findById(id);
+
+      if(!lesson) {
+        response.status(404).json( {message: 'Lesson not found'} );
+      }
+
       const result = await this.lessonModel.delete(id);
 
       if(!result) {
-        response.status(404).json( {message: 'Lesson not found'} );
-      } else {
         response.staus(204).json('Lesson removed successfully');
       }
     } catch(error) {
@@ -91,9 +111,9 @@ class LessonsController {
       const publicKey = sign.publicKey;
       const expiresIn = sign.expiresIn;
 
-      const cretedToken = await this.tokenList(token, privateKey, publicKey, expiresIn);
+      const createdToken = await this.tokenList(token, privateKey, publicKey, expiresIn);
 
-      response.status(200).json( {cretedToken} );
+      response.status(200).json( {createdToken} );
     } else {
       response.status(401).json( {message: 'Invalid username or password'} );
     }
@@ -117,7 +137,6 @@ class LessonsController {
   }
 
   async tokenValidate(request, response) {
-    console.log(request);
     const token = request.headers['authorization'];
 
     if(!token) {
@@ -132,19 +151,42 @@ class LessonsController {
 
     const publicKey = tokenItem.publicKey;
 
-    jwt.verify(token, publicKey, { algorithms: ['RS256'] }, (err, user) => {
-      if(err) {
-        return response.status(403).send( {message: `Invalid token: ${err.message}`} );
-      }
+    const verify = await jwt.verify(token, publicKey, { algorithms: ['RS256'] });
 
-      request.user = user;
-      return response.status(200).send( {message: 'Verified token'} );
-    });
+    if(!verify || verify == undefined) {
+      return response.status(403).send( {message: `Invalid token: ${err.message}`} );
+    }
+
+    request.user = verify;
+    return response.status(200).send( {message: 'Verified token'} );
   }
 
-  async expiredTokens() {
+  async expiredTokens(request, response) {
+    const { token } = request.body;
     const now = new Date();
-    await this.lessonModel.deleteToken(now);
+    const deleteToken = await this.lessonModel.deleteToken(token, now);
+
+    if (deleteToken) {
+        response.status(200).json({ message: "Expired Tokens Deleted Successfully" });
+    } else {
+        response.status(401).json({ message: "There was a problem trying to delete expired tokens" });
+    }
+  }
+
+  async isTokenValid(request, response) {
+    const { token } = request.body;
+    const now = new Date();
+    const isTokenValid = await this.lessonModel.isTokenValid(token, now);
+    
+    if (isTokenValid) {
+        response.status(200).json({ message: "valid token" });
+    } else {
+        response.status(401).json({ message: "invalid token" });
+    }
+  }
+
+  async serverOnline(request, response) {
+    return response.status(200).send( {message: 'Server online'} );
   }
 }
 

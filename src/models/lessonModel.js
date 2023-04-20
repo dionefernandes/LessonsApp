@@ -33,13 +33,20 @@ class LessonModel {
 
   async findAll() {
     const data = await this.getDataFromFile(dbPath);
-    return data.lessons;
+    const resultLessons = data.lessons;
+    return resultLessons.sort((a, b) => a.title.localeCompare(b.title));
   };
 
   async findById(id) {
     const data = await this.getDataFromFile(dbPath);
     return data.lessons.find( (lesson) => lesson.id == id );
   };
+
+  async findByTitle(title) {
+    const data = await this.getDataFromFile(dbPath);
+    const resultLessons = data.lessons.filter(lesson => lesson.title.toLowerCase().includes(title.toLowerCase()));
+    return resultLessons.sort((a, b) => a.title.localeCompare(b.title));
+  }
 
   async create(lesson) {
     const data = await this.getDataFromFile(dbPath);
@@ -93,8 +100,28 @@ class LessonModel {
     return data.tokensList.find( (tokens) => tokens.token == token );
   };
 
-  async deleteToken(now) {
+  async isTokenValid(token, now) {
     const data = await this.getDataFromFile(tokenPath);
+    const foundToken = data.tokensList.find((tokens) => tokens.token === token);
+    
+    if (!foundToken) {
+      return false;
+    }
+    
+    const createIn = new Date(foundToken.createIn);
+    const expiresIn = foundToken.expiresIn;
+    
+    if ((createIn.getTime() + expiresIn * 1000) < now.getTime()) {
+      return false;
+    }
+    
+    return true;
+}
+
+
+  async deleteToken(atualToken, now) {
+    const data = await this.getDataFromFile(tokenPath);
+    const dataAtualToken = await this.tokenExists(atualToken);
 
     data.tokensList = data.tokensList.filter(token => {
       const createIn = new Date(token.createIn);
@@ -104,6 +131,8 @@ class LessonModel {
         return data.tokensList.splice(token.token, 1);
       }
     });
+
+    data.tokensList.push(dataAtualToken);
   
     return this.writeDataToFile(data, tokenPath);
   }
